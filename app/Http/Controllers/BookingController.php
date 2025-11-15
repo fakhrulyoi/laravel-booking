@@ -26,25 +26,21 @@ class BookingController extends Controller
         file_put_contents(storage_path($this->file), json_encode($bookings, JSON_PRETTY_PRINT));
     }
 
-    // Show homepage with calendar + form
+    // Show homepage - CUSTOMER VIEW (Read-only calendar)
     public function index()
     {
         $bookings = $this->loadBookings();
-
-        // Get upcoming bookings for display
-        $upcomingBookings = array_filter($bookings, function($booking) {
-            return Carbon::parse($booking['date'])->isFuture();
-        });
-
-        return view('index', compact('bookings', 'upcomingBookings'));
+        return view('index', compact('bookings'));
     }
 
-    // Get all bookings (API endpoint)
-    public function getAllBookings()
+    // Get all booked dates (for customer calendar)
+    public function getBookedDates()
     {
         $bookings = $this->loadBookings();
+        $bookedDates = array_column($bookings, 'date');
+
         return response()->json([
-            'bookings' => $bookings
+            'booked_dates' => array_values(array_unique($bookedDates))
         ]);
     }
 
@@ -71,62 +67,88 @@ class BookingController extends Controller
         return view('admin', compact('bookings', 'totalBookings', 'upcomingBookings', 'completedBookings', 'typeStats'));
     }
 
-    // Store a new booking
+    // ADMIN: Store a new booking
     public function store(Request $request)
     {
         $request->validate([
             'name'     => 'required|string|max:255',
             'phone'    => 'required|string|max:50',
-            'email'    => 'required|email|max:255',
-            'date'     => 'required|date|after:today',
+            'email'    => 'nullable|email|max:255',
+            'date'     => 'required|date',
             'time'     => 'required',
             'location' => 'required|string|max:255',
             'type'     => 'required|string|max:100',
             'message'  => 'nullable|string|max:500',
+            'status'   => 'required|in:pending,confirmed,completed,cancelled',
         ]);
 
         $bookings = $this->loadBookings();
 
-        // NEW RULE: Check if date is already booked (one booking per day only)
+        // Check if date is already booked (one booking per day only)
         foreach ($bookings as $b) {
             if ($b['date'] === $request->date) {
-                return back()->with('error', 'Sorry, this date is already booked. We only accept one booking per day. Please choose another date.');
+                return back()->with('error', 'This date is already booked. Only one booking per day is allowed.');
             }
         }
 
-        // Validate time slot (8 AM to 11 PM)
-        $validTimes = [
-            '08:00', '09:00', '10:00', '11:00', '12:00', '13:00',
-            '14:00', '15:00', '16:00', '17:00', '18:00', '19:00',
-            '20:00', '21:00', '22:00', '23:00'
-        ];
-
-        if (!in_array($request->time, $validTimes)) {
-            return back()->with('error', 'Invalid time slot selected. Please choose a time between 8:00 AM and 11:00 PM.');
-        }
-
         $newBooking = [
-            'id'       => uniqid(),
-            'name'     => $request->name,
-            'phone'    => $request->phone,
-            'email'    => $request->email,
-            'date'     => $request->date,
-            'time'     => $request->time,
-            'location' => $request->location,
-            'type'     => $request->type,
-            'message'  => $request->message,
-            'status'   => 'pending',
+            'id'         => uniqid(),
+            'name'       => $request->name,
+            'phone'      => $request->phone,
+            'email'      => $request->email ?? '',
+            'date'       => $request->date,
+            'time'       => $request->time,
+            'location'   => $request->location,
+            'type'       => $request->type,
+            'message'    => $request->message ?? '',
+            'status'     => $request->status,
             'created_at' => now()->toDateTimeString(),
         ];
 
         $bookings[] = $newBooking;
         $this->saveBookings($bookings);
 
-        // Redirect back to home page with success message
-        return redirect()->route('home')->with('success', 'Your booking has been submitted successfully! We will contact you soon to confirm the details. Please note: Only one booking per day is accepted.');
+        return redirect()->route('admin')->with('success', 'Booking added successfully!');
     }
 
-    // Update booking status
+    // ADMIN: Update booking
+    public function update($id, Request $request)
+    {
+        $request->validate([
+            'name'     => 'required|string|max:255',
+            'phone'    => 'required|string|max:50',
+            'email'    => 'nullable|email|max:255',
+            'date'     => 'required|date',
+            'time'     => 'required',
+            'location' => 'required|string|max:255',
+            'type'     => 'required|string|max:100',
+            'message'  => 'nullable|string|max:500',
+            'status'   => 'required|in:pending,confirmed,completed,cancelled',
+        ]);
+
+        $bookings = $this->loadBookings();
+
+        foreach ($bookings as &$booking) {
+            if ($booking['id'] === $id) {
+                $booking['name']     = $request->name;
+                $booking['phone']    = $request->phone;
+                $booking['email']    = $request->email ?? '';
+                $booking['date']     = $request->date;
+                $booking['time']     = $request->time;
+                $booking['location'] = $request->location;
+                $booking['type']     = $request->type;
+                $booking['message']  = $request->message ?? '';
+                $booking['status']   = $request->status;
+                break;
+            }
+        }
+
+        $this->saveBookings($bookings);
+
+        return redirect()->route('admin')->with('success', 'Booking updated successfully!');
+    }
+
+    // ADMIN: Update booking status
     public function updateStatus($id, Request $request)
     {
         $status = $request->query('status', 'confirmed');
@@ -141,11 +163,11 @@ class BookingController extends Controller
 
         $this->saveBookings($bookings);
 
-        return redirect('/admin')->with('success', 'Booking status updated successfully!');
+        return redirect()->route('admin')->with('success', 'Booking status updated successfully!');
     }
 
-    // Delete booking by ID
-    public function delete($id, Request $request)
+    // ADMIN: Delete booking
+    public function delete($id)
     {
         $bookings = $this->loadBookings();
 
@@ -155,46 +177,14 @@ class BookingController extends Controller
 
         $this->saveBookings(array_values($bookings));
 
-        return redirect('/admin')->with('success', 'Booking deleted successfully!');
-    }
-
-    // Check available dates (API endpoint for AJAX calls)
-    public function checkAvailability(Request $request)
-    {
-        $date = $request->query('date');
-        $bookings = $this->loadBookings();
-
-        $isBooked = false;
-        foreach ($bookings as $booking) {
-            if ($booking['date'] === $date) {
-                $isBooked = true;
-                break;
-            }
-        }
-
-        return response()->json([
-            'available' => !$isBooked,
-            'date' => $date
-        ]);
-    }
-
-    // Get all booked dates (API endpoint for calendar)
-    public function getBookedDates()
-    {
-        $bookings = $this->loadBookings();
-        $bookedDates = array_column($bookings, 'date');
-
-        return response()->json([
-            'booked_dates' => array_values(array_unique($bookedDates))
-        ]);
+        return redirect()->route('admin')->with('success', 'Booking deleted successfully!');
     }
 
     // Show login form
     public function showLogin()
     {
-        // Redirect to admin if already logged in
         if (session('admin_logged_in')) {
-            return redirect('/admin');
+            return redirect()->route('admin');
         }
 
         return view('login');
@@ -204,15 +194,15 @@ class BookingController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'password' => 'required'
+            'password' => 'required|string'
         ]);
 
         $password = $request->input('password');
 
-        // Simple password check (in production, use proper authentication)
+        // Simple password check
         if ($password === 'admin123') {
             session(['admin_logged_in' => true]);
-            return redirect('/admin')->with('success', 'Welcome to admin dashboard!');
+            return redirect()->route('admin');
         }
 
         return back()->with('error', 'Invalid password. Please try again.');
@@ -222,7 +212,6 @@ class BookingController extends Controller
     public function logout()
     {
         session()->forget('admin_logged_in');
-        session()->flush();
-        return redirect('/login')->with('success', 'You have been logged out successfully.');
+        return redirect('/')->with('success', 'You have been logged out successfully.');
     }
 }

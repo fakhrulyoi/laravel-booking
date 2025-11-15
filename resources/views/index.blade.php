@@ -9,17 +9,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/main.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         :root {
-            /* Professional Color Palette */
             --primary-dark: #0f172a;
             --primary-medium: #1e293b;
-            --primary-light: #334155;
             --accent-blue: #3b82f6;
             --accent-emerald: #10b981;
             --neutral-50: #f8fafc;
@@ -27,27 +24,17 @@
             --neutral-200: #e2e8f0;
             --neutral-300: #cbd5e1;
             --neutral-400: #94a3b8;
-            --neutral-500: #64748b;
             --neutral-600: #475569;
             --neutral-700: #334155;
-            --neutral-800: #1e293b;
-            --neutral-900: #0f172a;
-
-            /* Typography */
-            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-primary: 'Inter', sans-serif;
             --font-display: 'Playfair Display', serif;
-
-            /* Spacing & Layout */
             --section-padding: 120px;
-            --container-max-width: 1200px;
             --border-radius: 12px;
             --border-radius-lg: 20px;
-
-            /* Shadows */
             --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
         }
 
         * {
@@ -60,7 +47,6 @@
             font-family: var(--font-primary);
             line-height: 1.6;
             color: var(--neutral-700);
-            font-weight: 400;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -143,14 +129,14 @@
             background: linear-gradient(135deg,
                 rgba(15, 23, 42, 0.8) 0%,
                 rgba(30, 41, 59, 0.6) 100%),
-                url('https://images.unsplash.com/photo-1606216794074-735e91aa2c92?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80') center/cover no-repeat;
+                url('{{ asset("images/picutama.jfif") }}') center/cover no-repeat;
             display: flex;
             align-items: center;
             position: relative;
         }
 
         .hero-content {
-            max-width: var(--container-max-width);
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
             color: white;
@@ -295,146 +281,55 @@
             padding: var(--section-padding) 0;
             background: white;
         }
-/* Add this to your existing CSS */
 
-/* Animated Gallery Container */
-.gallery-wrapper {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    margin-top: 4rem;
-}
-
-.gallery-track {
-    display: flex;
-    gap: 1.5rem;
-    animation: scrollLeft 30s linear infinite;
-    width: fit-content;
-}
-
-/* Pause animation on hover */
-.gallery-wrapper:hover .gallery-track {
-    animation-play-state: paused;
-}
-
-@keyframes scrollLeft {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
-}
-
-.gallery-item {
-    position: relative;
-    border-radius: var(--border-radius-lg);
-    overflow: hidden;
-    width: 350px;
-    height: 250px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    flex-shrink: 0;
-}
-
-.gallery-item:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-xl);
-    z-index: 10;
-}
-
-/* Gradient fade edges */
-.gallery-wrapper::before,
-.gallery-wrapper::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    width: 100px;
-    height: 100%;
-    z-index: 5;
-    pointer-events: none;
-}
-
-.gallery-wrapper::before {
-    left: 0;
-    background: linear-gradient(to right, white, transparent);
-}
-
-.gallery-wrapper::after {
-    right: 0;
-    background: linear-gradient(to left, white, transparent);
-}
-
-/* Controls */
-.gallery-controls {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 3rem;
-}
-
-.control-btn {
-    background: var(--accent-blue);
-    color: white;
-    border: none;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1.25rem;
-}
-
-.control-btn:hover {
-    background: #2563eb;
-    transform: scale(1.1);
-}
-
-/* Enhanced overlay */
-.gallery-overlay h4 {
-    color: white;
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.gallery-overlay p {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.875rem;
-}
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+        .gallery-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
             margin-top: 4rem;
+        }
+
+        .gallery-track {
+            display: flex;
+            gap: 1.5rem;
+            animation: scrollLeft 30s linear infinite;
+            width: fit-content;
+        }
+
+        .gallery-wrapper:hover .gallery-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollLeft {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         .gallery-item {
             position: relative;
             border-radius: var(--border-radius-lg);
             overflow: hidden;
-            aspect-ratio: 4/3;
+            width: 350px;
+            height: 250px;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
         }
 
         .gallery-item:hover {
-            transform: scale(1.02);
+            transform: scale(1.05);
             box-shadow: var(--shadow-xl);
+            z-index: 10;
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: all 0.3s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
         }
 
         .gallery-overlay {
@@ -446,166 +341,367 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
+            padding: 2rem;
+            text-align: center;
         }
 
         .gallery-item:hover .gallery-overlay {
             opacity: 1;
         }
 
-        .gallery-overlay i {
-            font-size: 2rem;
+        .gallery-overlay h4 {
             color: white;
-        }
-
-        /* Booking Section */
-        .booking-section {
-            padding: var(--section-padding) 0;
-            background: var(--neutral-50);
-        }
-
-        .booking-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            margin-top: 4rem;
-        }
-        /* Add this to your CSS */
-        .booked-date {
-            background-color: #fee2e2 !important;
-        }
-
-        .fc-day.fc-day-disabled {
-            background-color: #fee2e2 !important;
-            color: #dc2626 !important;
-            cursor: not-allowed !important;
-        }
-
-        .fc-day.fc-day-disabled .fc-daygrid-day-number {
-            color: #dc2626 !important;
-        }
-        .booking-form {
-            background: white;
-            padding: 3rem;
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--neutral-200);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
+            font-size: 1.25rem;
             font-weight: 600;
-            color: var(--primary-dark);
             margin-bottom: 0.5rem;
+        }
+
+        .gallery-overlay p {
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.875rem;
         }
 
-        .form-control {
-            width: 100%;
-            padding: 0.875rem 1rem;
-            border: 2px solid var(--neutral-200);
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background: white;
+        .gallery-wrapper::before,
+        .gallery-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
         }
 
-        .form-control:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        .gallery-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, white, transparent);
         }
 
-        .time-slots {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 0.75rem;
-            margin-top: 0.5rem;
-            max-height: 200px;
-            overflow-y: auto;
+        .gallery-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, white, transparent);
         }
 
-        .time-slot {
-            padding: 0.75rem;
-            border: 2px solid var(--neutral-200);
-            border-radius: var(--border-radius);
-            text-align: center;
+        .gallery-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .control-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: 500;
-            font-size: 0.875rem;
+            font-size: 1.25rem;
         }
 
-        .time-slot:hover {
-            border-color: var(--accent-blue);
-            background: rgba(59, 130, 246, 0.05);
-        }
-
-        .time-slot.selected {
-            background: var(--accent-blue);
-            border-color: var(--accent-blue);
-            color: white;
-        }
-
-        .time-slot.disabled {
-            background: var(--neutral-100);
-            color: var(--neutral-400);
-            cursor: not-allowed;
-            border-color: var(--neutral-200);
-        }
-
-        .btn-primary {
-            background: var(--accent-blue);
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: var(--border-radius);
-            font-weight: 600;
-            width: 100%;
-            transition: all 0.3s ease;
-            color: white;
-        }
-
-        .btn-primary:hover {
+        .control-btn:hover {
             background: #2563eb;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            transform: scale(1.1);
+        }
+
+        /* Calendar Section - CLEAN & BEAUTIFUL */
+        .calendar-section {
+            padding: var(--section-padding) 0;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
         }
 
         .calendar-container {
             background: white;
-            padding: 2rem;
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--neutral-200);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
-        /* Date unavailable styling */
-        .fc-day.fc-day-disabled {
-            background-color: #fee2e2 !important;
-            color: #dc2626 !important;
-            cursor: not-allowed !important;
+        .calendar-legend {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
         }
 
-        .fc-day.fc-day-disabled .fc-daygrid-day-number {
-            color: #dc2626 !important;
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--neutral-700);
         }
 
-        .unavailable-date-info {
-            background: #fee2e2;
-            border: 1px solid #fecaca;
-            border-radius: var(--border-radius);
-            padding: 1rem;
-            margin-top: 1rem;
-            color: #dc2626;
-            font-size: 0.875rem;
+        .legend-indicator {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+
+        .legend-available {
+            background: #3b82f6;
+        }
+
+        .legend-booked {
+            background: #ef4444;
+        }
+
+        .legend-today {
+            background: var(--accent-emerald);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+
+        /* Clean FullCalendar Styles */
+        #calendar {
+            background: white;
+            border-radius: 16px;
+        }
+
+        .fc {
+            font-family: var(--font-primary);
+            border: none;
+        }
+
+        .fc .fc-toolbar {
+            margin-bottom: 2.5rem;
+            padding: 0;
+            gap: 1rem;
+        }
+
+        .fc .fc-toolbar-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .fc .fc-button {
+            background: white;
+            border: 1px solid var(--neutral-300);
+            color: var(--neutral-700);
+            padding: 0.65rem 1.25rem;
+            border-radius: 10px;
+            font-weight: 500;
+            text-transform: capitalize;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .fc .fc-button:hover {
+            background: var(--neutral-50);
+            border-color: var(--neutral-400);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .fc .fc-button-active {
+            background: var(--primary-dark) !important;
+            border-color: var(--primary-dark) !important;
+            color: white !important;
+        }
+
+        .fc .fc-button:disabled {
+            opacity: 0.4;
+        }
+
+        .fc-theme-standard .fc-scrollgrid {
+            border: none;
+        }
+
+        .fc .fc-col-header {
+            border: none;
+        }
+
+        .fc .fc-col-header-cell {
+            padding: 1.25rem 0.5rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--neutral-500);
+            background: transparent;
+            border: none;
+        }
+
+        .fc .fc-daygrid-body {
+            border: none;
+        }
+
+        .fc .fc-scrollgrid-section-body > td {
+            border: none;
+        }
+
+        .fc .fc-daygrid-day {
+            border: none;
+            background: var(--neutral-50);
+            margin: 3px;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            position: relative;
+            min-height: 90px;
+        }
+
+        .fc .fc-daygrid-day-frame {
+            min-height: 90px;
+            display: flex;
+            flex-direction: column;
+            padding: 0.75rem;
+        }
+
+        .fc .fc-daygrid-day-top {
+            flex-direction: column;
+        }
+
+        .fc .fc-daygrid-day-number {
+            padding: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--neutral-700);
+            width: 100%;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Available dates - Clean Blue */
+        .fc .fc-day-available {
+            background: white !important;
+            border: 2px solid #3b82f6 !important;
+            cursor: pointer;
+            margin: 2px;
+        }
+
+        .fc .fc-day-available:hover {
+            background: #eff6ff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.15);
+        }
+
+        .fc .fc-day-available .fc-daygrid-day-number {
+            color: #3b82f6;
+            font-weight: 700;
+        }
+
+        /* Booked dates - Clean Red */
+        .fc .fc-day-disabled {
+            background: white !important;
+            border: 2px solid #ef4444 !important;
+            cursor: not-allowed;
+            position: relative;
+            margin: 2px;
+            opacity: 0.7;
+        }
+
+        .fc .fc-day-disabled:hover {
+            background: #fef2f2 !important;
+        }
+
+        .fc .fc-day-disabled .fc-daygrid-day-number {
+            color: #ef4444;
+            font-weight: 700;
+        }
+
+        /* Today - Clean Green */
+        .fc .fc-day-today {
+            background: white !important;
+            border: 2px solid var(--accent-emerald) !important;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .fc .fc-day-today .fc-daygrid-day-number {
+            color: var(--accent-emerald);
+            font-weight: 700;
+        }
+
+        /* Past dates */
+        .fc .fc-day-past {
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        /* Clean status badge */
+        .date-status-badge {
+            position: absolute;
+            bottom: 0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.25rem 0.65rem;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .badge-available {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .badge-booked {
+            background: #ef4444;
+            color: white;
+        }
+
+        .badge-today {
+            background: var(--accent-emerald);
+            color: white;
+        }
+
+        /* Remove the pulsing dot animation - cleaner look */
+        .booking-dot {
             display: none;
         }
 
-        .unavailable-date-info.show {
-            display: block;
+        /* WhatsApp CTA Section */
+        .whatsapp-cta-section {
+            background: linear-gradient(135deg, var(--accent-emerald), #059669);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .whatsapp-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: white;
+            color: var(--accent-emerald);
+            padding: 1.25rem 2.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+            color: #059669;
+        }
+
+        .whatsapp-btn i {
+            font-size: 1.75rem;
         }
 
         /* Footer */
@@ -634,10 +730,6 @@
             color: var(--neutral-400);
             line-height: 1.7;
             margin-bottom: 2rem;
-        }
-
-        .contact-info {
-            space-y: 1rem;
         }
 
         .contact-item {
@@ -703,11 +795,6 @@
                 --section-padding: 80px;
             }
 
-            .booking-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
@@ -717,38 +804,43 @@
                 gap: 1rem;
             }
 
-            .booking-form,
             .calendar-container {
-                padding: 2rem;
+                padding: 1.5rem;
             }
 
-            .time-slots {
-                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            .calendar-legend {
+                gap: 1rem;
+                padding: 1rem;
             }
-        }
 
-        /* Alert Styles */
-        .alert {
-            border-radius: var(--border-radius);
-            border: none;
-            padding: 1rem 1.5rem;
-            margin-bottom: 2rem;
-        }
+            .gallery-item {
+                width: 280px;
+                height: 200px;
+            }
 
-        .alert-success {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid var(--accent-emerald);
-            color: #047857;
-        }
+            .fc .fc-toolbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
 
-        .alert-danger {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid #ef4444;
-            color: #dc2626;
+            .fc .fc-toolbar-title {
+                font-size: 1.5rem;
+            }
+
+            .date-status-badge {
+                font-size: 0.6rem;
+                padding: 0.2rem 0.5rem;
+            }
+
+            .booking-dot {
+                width: 8px;
+                height: 8px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="#">Chap Gallery</a>
@@ -764,7 +856,7 @@
                         <a class="nav-link" href="#gallery">Portfolio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#booking">Book Now</a>
+                        <a class="nav-link" href="#calendar">Availability</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
@@ -777,6 +869,7 @@
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-content" data-aos="fade-up" data-aos-duration="800">
             <div class="hero-subtitle">Professional Photography</div>
@@ -785,13 +878,14 @@
                 We specialize in creating timeless visual stories through professional photography services.
                 From intimate weddings to corporate events, we deliver exceptional results that exceed expectations.
             </p>
-            <a href="#booking" class="cta-button">
-                <span>Book Your Session</span>
+            <a href="#calendar" class="cta-button">
+                <span>Check Availability</span>
                 <i class="fas fa-arrow-right"></i>
             </a>
         </div>
     </section>
 
+    <!-- Services Section -->
     <section class="services-section" id="services">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
@@ -851,208 +945,148 @@
         </div>
     </section>
 
-<!-- Replace your existing gallery section with this -->
-<section class="gallery-section" id="gallery">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <div class="section-subtitle">Our Work</div>
-            <h2 class="section-title">Portfolio Showcase</h2>
-            <p class="section-description">
-                Explore a curated selection of our finest work, showcasing our commitment
-                to excellence in visual storytelling and artistic composition.
-            </p>
-        </div>
-
-        <div class="gallery-wrapper">
-            <div class="gallery-track" id="galleryTrack">
-                <!-- First set of images -->
-                <div class="gallery-item">
-                    <img src="{{ asset('images/pic1.jfif') }}" alt="Wedding Photography">
-                    <div class="gallery-overlay">
-                        <i class="fas fa-search-plus"></i>
-                        <h4>Wedding Photography</h4>
-                        <p>Romantic moments captured forever</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="{{ asset('images/pic2.jfif') }}" alt="Event Photography">
-                    <div class="gallery-overlay">
-                        <i class="fas fa-search-plus"></i>
-                        <h4>Event Photography</h4>
-                        <p>Special celebrations and gatherings</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="{{ asset('images/pic4.jfif') }}" alt="Graduation Photography">
-                    <div class="gallery-overlay">
-                        <i class="fas fa-search-plus"></i>
-                        <h4>Graduation Photography</h4>
-                        <p>Academic achievements celebrated</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="{{ asset('images/pic3.jfif') }}" alt="Portrait Photography">
-                    <div class="gallery-overlay">
-                        <i class="fas fa-search-plus"></i>
-                        <h4>Portrait Photography</h4>
-                        <p>Professional headshots and portraits</p>
-                    </div>
-                </div>
-
-                <!-- Duplicate set for seamless loop -->
-                <div class="gallery-item">
-                    <img src="{{ asset('images/pic1.jfif') }}" alt="Wedding Photography">
-                    <div class="gallery-overlay">
-                        <i class="fas fa-search-plus"></i>
-                        <h4>Wedding Photography</h4>
-                        <p>Romantic moments captured forever</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="{{ asset('images/pic2.jfif') }}" alt="Event Photography">
-                    <div class="gallery-overlay">
-                        <i class="fas fa-search-plus"></i>
-                        <h4>Event Photography</h4>
-                        <p>Special celebrations and gatherings</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="{{ asset('images/pic4.jfif') }}" alt="Graduation Photography">
-                    <div class="gallery-overlay">
-                        <i class="fas fa-search-plus"></i>
-                        <h4>Graduation Photography</h4>
-                        <p>Academic achievements celebrated</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <img src="{{ asset('images/pic3.jfif') }}" alt="Portrait Photography">
-                    <div class="gallery-overlay">
-                        <i class="fas fa-search-plus"></i>
-                        <h4>Portrait Photography</h4>
-                        <p>Professional headshots and portraits</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="gallery-controls">
-            <button class="control-btn" id="pauseBtn" title="Pause/Play Animation">
-                <i class="fas fa-pause"></i>
-            </button>
-            <button class="control-btn" id="speedBtn" title="Change Speed">
-                <i class="fas fa-tachometer-alt"></i>
-            </button>
-        </div>
-    </div>
-</section>
-
-    <section class="booking-section" id="booking">
+    <!-- Gallery Section -->
+    <section class="gallery-section" id="gallery">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <div class="section-subtitle">Get Started</div>
-                <h2 class="section-title">Book Your Photography Session</h2>
+                <div class="section-subtitle">Our Work</div>
+                <h2 class="section-title">Portfolio Showcase</h2>
                 <p class="section-description">
-                    Schedule your consultation and let us create beautiful memories together.
-                    <strong>Please note: Only one booking is available per day.</strong>
+                    Explore a curated selection of our finest work, showcasing our commitment
+                    to excellence in visual storytelling and artistic composition.
                 </p>
             </div>
 
-            <div id="alert-container"></div>
+            <div class="gallery-wrapper">
+                <div class="gallery-track" id="galleryTrack">
+                    <!-- First set of images -->
+                    <div class="gallery-item">
+                        <img src="{{ asset('images/pic1.jfif') }}" alt="Wedding Photography">
+                        <div class="gallery-overlay">
+                            <h4>Wedding Photography</h4>
+                            <p>Romantic moments captured forever</p>
+                        </div>
+                    </div>
 
-            <div class="booking-container">
-                <div class="booking-form" data-aos="fade-right">
-                    <h3 style="margin-bottom: 2rem; color: var(--primary-dark); font-family: var(--font-display);">Booking Details</h3>
+                    <div class="gallery-item">
+                        <img src="{{ asset('images/pic2.jfif') }}" alt="Event Photography">
+                        <div class="gallery-overlay">
+                            <h4>Event Photography</h4>
+                            <p>Special celebrations and gatherings</p>
+                        </div>
+                    </div>
 
-<form action="{{ route('book.store') }}" method="POST" id="bookingForm">
-    @csrf   {{-- This prevents 419 errors --}}
+                    <div class="gallery-item">
+                        <img src="{{ asset('images/pic4.jfif') }}" alt="Graduation Photography">
+                        <div class="gallery-overlay">
+                            <h4>Graduation Photography</h4>
+                            <p>Academic achievements celebrated</p>
+                        </div>
+                    </div>
 
-    <div class="form-group">
-        <label class="form-label">Full Name</label>
-        <input type="text" name="name" class="form-control" required>
-    </div>
+                    <div class="gallery-item">
+                        <img src="{{ asset('images/pic3.jfif') }}" alt="Portrait Photography">
+                        <div class="gallery-overlay">
+                            <h4>Portrait Photography</h4>
+                            <p>Professional headshots and portraits</p>
+                        </div>
+                    </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="form-label">Phone Number</label>
-                <input type="text" name="phone" class="form-control" required>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="form-label">Email Address</label>
-                <input type="email" name="email" class="form-control" required>
-            </div>
-        </div>
-    </div>
+                    <!-- Duplicate set for seamless loop -->
+                    <div class="gallery-item">
+                        <img src="{{ asset('images/pic1.jfif') }}" alt="Wedding Photography">
+                        <div class="gallery-overlay">
+                            <h4>Wedding Photography</h4>
+                            <p>Romantic moments captured forever</p>
+                        </div>
+                    </div>
 
-    <div class="form-group">
-        <label class="form-label">Preferred Date</label>
-        <input type="date" id="booking-date" name="date" class="form-control" required min="">
-        <div class="unavailable-date-info" id="unavailable-info">
-            <i class="fas fa-exclamation-triangle me-2"></i>
-            This date is already booked. Please select another available date.
-        </div>
-    </div>
+                    <div class="gallery-item">
+                        <img src="{{ asset('images/pic2.jfif') }}" alt="Event Photography">
+                        <div class="gallery-overlay">
+                            <h4>Event Photography</h4>
+                            <p>Special celebrations and gatherings</p>
+                        </div>
+                    </div>
 
-    <div class="form-group">
-        <label class="form-label">Available Time Slots (8:00 AM - 11:00 PM)</label>
-        <div class="time-slots" id="time-slots"></div>
-        <input type="hidden" name="time" id="selected-time" required>
-    </div>
+                    <div class="gallery-item">
+                        <img src="{{ asset('images/pic4.jfif') }}" alt="Graduation Photography">
+                        <div class="gallery-overlay">
+                            <h4>Graduation Photography</h4>
+                            <p>Academic achievements celebrated</p>
+                        </div>
+                    </div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="form-label">Photography Type</label>
-                <select name="type" class="form-control" required>
-                    <option value="">Select Service</option>
-                    <option value="Wedding">Wedding</option>
-                    <option value="Birthday">Birthday</option>
-                    <option value="Convocation">Convocation</option>
-                    <option value="Couple">Couple</option>
-                    <option value="Family">Family</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="form-label">Location</label>
-                <input type="text" name="location" class="form-control" required placeholder="Studio, Outdoor, or Client venue">
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="form-label">Special Requirements (Optional)</label>
-        <textarea name="message" class="form-control" rows="4" placeholder="Tell us about any special requirements or preferences..."></textarea>
-    </div>
-
-    <button type="submit" class="btn-primary" id="submitBtn">
-        <span>Submit Booking Request</span>
-    </button>
-</form>
-
-                </div>
-
-                <div class="calendar-container" data-aos="fade-left">
-                    <h3 style="margin-bottom: 2rem; color: var(--primary-dark); font-family: var(--font-display);">Available Dates</h3>
-                    <div id="calendar"></div>
-                    <div style="margin-top: 1rem; font-size: 0.875rem; color: var(--neutral-600);">
-                        <div><span style="display: inline-block; width: 12px; height: 12px; background: #fee2e2; border-radius: 2px; margin-right: 8px;"></span>Unavailable (Already Booked)</div>
-                        <div style="margin-top: 0.5rem;"><span style="display: inline-block; width: 12px; height: 12px; background: #f0f9ff; border-radius: 2px; margin-right: 8px;"></span>Available for Booking</div>
+                    <div class="gallery-item">
+                        <img src="{{ asset('images/pic3.jfif') }}" alt="Portrait Photography">
+                        <div class="gallery-overlay">
+                            <h4>Portrait Photography</h4>
+                            <p>Professional headshots and portraits</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="gallery-controls">
+                <button class="control-btn" id="pauseBtn" title="Pause/Play Animation">
+                    <i class="fas fa-pause"></i>
+                </button>
+                <button class="control-btn" id="speedBtn" title="Change Speed">
+                    <i class="fas fa-tachometer-alt"></i>
+                </button>
             </div>
         </div>
     </section>
 
+    <!-- Calendar Section -->
+    <section class="calendar-section" id="calendar">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-subtitle">Check Availability</div>
+                <h2 class="section-title">Our Booking Calendar</h2>
+                <p class="section-description">
+                    View our availability below. Dates are color-coded for easy identification.
+                    <strong>To make a booking, please WhatsApp us directly!</strong>
+                </p>
+            </div>
+
+            <div class="calendar-container" data-aos="fade-up" data-aos-delay="200">
+                <div class="calendar-legend">
+                    <div class="legend-item">
+                        <div class="legend-indicator legend-available"></div>
+                        <span>Available Dates</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-indicator legend-booked"></div>
+                        <span>Booked Dates</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-indicator legend-today"></div>
+                        <span>Today</span>
+                    </div>
+                </div>
+
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp CTA Section -->
+    <section class="whatsapp-cta-section">
+        <div class="container" data-aos="fade-up">
+            <h2 class="whatsapp-title">Ready to Book Your Session?</h2>
+            <p style="font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.9;">
+                Contact us on WhatsApp to discuss your requirements and confirm your booking!
+            </p>
+            <a href="https://wa.me/60126509707?text=Hi! I would like to book a photography session with Chap Gallery."
+               class="whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp Us Now</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer class="footer" id="contact">
         <div class="container">
             <div class="footer-content">
@@ -1062,7 +1096,7 @@
                         Professional photography services specializing in capturing life's most precious moments
                         with artistic excellence and technical precision.
                     </p>
-                    <div class="contact-info">
+                    <div>
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
                             <span>Based in Kuantan & Pekan</span>
@@ -1076,7 +1110,7 @@
 
                 <div>
                     <h4 style="color: white; margin-bottom: 1.5rem; font-weight: 600;">Get In Touch</h4>
-                    <div class="contact-info">
+                    <div>
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
                             <a href="mailto:chapgallery11@gmail.com">chapgallery11@gmail.com</a>
@@ -1103,57 +1137,22 @@
         </div>
     </footer>
 
-    <a href="https://wa.me/+60126509707" class="whatsapp-float" target="_blank">
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/60126509707" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
-        // Add this to your existing JavaScript
-// Gallery controls
-document.addEventListener('DOMContentLoaded', function() {
-    const galleryTrack = document.getElementById('galleryTrack');
-    const pauseBtn = document.getElementById('pauseBtn');
-    const speedBtn = document.getElementById('speedBtn');
-
-    if (galleryTrack && pauseBtn && speedBtn) {
-        let isPaused = false;
-        let currentSpeed = 30;
-        const speeds = [15, 30, 45];
-        let speedIndex = 1;
-
-        // Pause/Play functionality
-        pauseBtn.addEventListener('click', () => {
-            if (isPaused) {
-                galleryTrack.style.animationPlayState = 'running';
-                pauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                isPaused = false;
-            } else {
-                galleryTrack.style.animationPlayState = 'paused';
-                pauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-                isPaused = true;
-            }
-        });
-
-        // Speed control functionality
-        speedBtn.addEventListener('click', () => {
-            speedIndex = (speedIndex + 1) % speeds.length;
-            currentSpeed = speeds[speedIndex];
-            galleryTrack.style.animationDuration = `${currentSpeed}s`;
-
-            const icons = ['fa-forward', 'fa-tachometer-alt', 'fa-backward'];
-            speedBtn.innerHTML = `<i class="fas ${icons[speedIndex]}"></i>`;
-        });
-    }
-});
         // Initialize AOS
         AOS.init({
-            duration: 800,
+            duration: 600,
             once: true,
-            offset: 100
+            offset: 50
         });
 
         // Navbar scroll effect
@@ -1187,252 +1186,152 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-// Calendar and Time Slot Management
-document.addEventListener('DOMContentLoaded', function() {
-    const calendarEl = document.getElementById('calendar');
-    const bookingDateInput = document.getElementById('booking-date');
-    const timeSlotsContainer = document.getElementById('time-slots');
-    const selectedTimeInput = document.getElementById('selected-time');
-    const unavailableInfo = document.getElementById('unavailable-info');
+        // Gallery controls
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryTrack = document.getElementById('galleryTrack');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const speedBtn = document.getElementById('speedBtn');
 
-    let bookedDates = [];
-    let allBookings = []; // Store all booking data
+            if (galleryTrack && pauseBtn && speedBtn) {
+                let isPaused = false;
+                let currentSpeed = 30;
+                const speeds = [15, 30, 45];
+                let speedIndex = 1;
 
-    // Extended time slots from 8 AM to 11 PM
-    const availableTimes = [
-        '08:00', '09:00', '10:00', '11:00', '12:00', '13:00',
-        '14:00', '15:00', '16:00', '17:00', '18:00', '19:00',
-        '20:00', '21:00', '22:00', '23:00'
-    ];
-
-    // Fetch booked dates from the backend
-    async function fetchBookedDates() {
-        try {
-            const response = await fetch('/booked-dates');
-            const data = await response.json();
-            bookedDates = data.booked_dates;
-
-            // Fetch all bookings to get details
-            const bookingsResponse = await fetch('/all-bookings'); // Need to create this endpoint
-            const bookingsData = await bookingsResponse.json();
-            allBookings = bookingsData.bookings;
-
-            // Now, initialize the calendar with the fetched data
-            initializeCalendar();
-
-        } catch (error) {
-            console.error("Error fetching data:", error);
-            // Initialize calendar even if fetch fails to avoid breaking the page
-            initializeCalendar();
-        }
-    }
-
-    // Initialize calendar function
-    function initializeCalendar() {
-        const calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            height: 'auto',
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth'
-            },
-            // Create events for booked dates with details
-            events: allBookings.map(booking => ({
-                start: booking.date,
-                display: 'background',
-                color: '#fee2e2',
-                title: `${booking.name} - ${booking.time}`, // Show name and time on hover
-                className: 'booked-date'
-            })),
-            dateClick: function(info) {
-                const clickedDate = new Date(info.dateStr);
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-
-                if (clickedDate < today) {
-                    return;
-                }
-
-                // Check if date is already booked using the fetched data
-                if (bookedDates.includes(info.dateStr)) {
-                    // Find the booking for this date
-                    const booking = allBookings.find(b => b.date === info.dateStr);
-                    if (booking) {
-                        showAlert(`This date is already booked by ${booking.name} at ${formatTime(booking.time)}. Please select another available date.`, 'danger');
+                // Pause/Play functionality
+                pauseBtn.addEventListener('click', () => {
+                    if (isPaused) {
+                        galleryTrack.style.animationPlayState = 'running';
+                        pauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                        isPaused = false;
                     } else {
-                        showAlert('This date is already booked. Please select another available date.', 'danger');
+                        galleryTrack.style.animationPlayState = 'paused';
+                        pauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                        isPaused = true;
                     }
-                    return;
-                }
-
-                bookingDateInput.value = info.dateStr;
-                generateTimeSlots(clickedDate);
-
-                timeSlotsContainer.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
                 });
-            },
-            dayCellDidMount: function(info) {
-                const dateString = info.date.toISOString().split('T')[0];
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
 
-                if (info.date < today) {
-                    info.el.classList.add('fc-day-disabled');
-                    info.el.style.pointerEvents = 'none';
-                } else if (bookedDates.includes(dateString)) {
-                    info.el.classList.add('fc-day-disabled');
-                    info.el.style.cursor = 'not-allowed';
+                // Speed control functionality
+                speedBtn.addEventListener('click', () => {
+                    speedIndex = (speedIndex + 1) % speeds.length;
+                    currentSpeed = speeds[speedIndex];
+                    galleryTrack.style.animationDuration = `${currentSpeed}s`;
 
-                    // Add a dot indicator for booked dates
-                    const dot = document.createElement('div');
-                    dot.style.position = 'absolute';
-                    dot.style.top = '5px';
-                    dot.style.right = '5px';
-                    dot.style.width = '8px';
-                    dot.style.height = '8px';
-                    dot.style.backgroundColor = '#dc2626';
-                    dot.style.borderRadius = '50%';
-                    info.el.appendChild(dot);
-                }
+                    const icons = ['fa-forward', 'fa-tachometer-alt', 'fa-backward'];
+                    speedBtn.innerHTML = `<i class="fas ${icons[speedIndex]}"></i>`;
+                });
             }
         });
 
-        calendar.render();
+        // Enhanced Calendar Management
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarEl = document.getElementById('calendar');
+            let bookedDates = [];
 
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        bookingDateInput.min = tomorrow.toISOString().split('T')[0];
-        generateTimeSlots(tomorrow);
-    }
-
-            // Generate time slot buttons
-            function generateTimeSlots(selectedDate) {
-                timeSlotsContainer.innerHTML = '';
-                const dateString = selectedDate.toISOString().split('T')[0];
-
-                // Check if date is already booked
-                const isDateBooked = bookedDates.includes(dateString);
-
-                if (isDateBooked) {
-                    unavailableInfo.classList.add('show');
-                    timeSlotsContainer.innerHTML = '<div style="text-align: center; color: #dc2626; padding: 2rem;"><i class="fas fa-calendar-times" style="font-size: 2rem; margin-bottom: 1rem;"></i><br>This date is fully booked</div>';
-                    return;
-                } else {
-                    unavailableInfo.classList.remove('show');
-                }
-
-                // Generate all time slots since date is available
-                availableTimes.forEach(time => {
-                    const button = document.createElement('div');
-                    button.textContent = formatTime(time);
-                    button.classList.add('time-slot');
-                    button.setAttribute('data-time', time);
-
-                    button.addEventListener('click', () => {
-                        document.querySelectorAll('.time-slot').forEach(btn => {
-                            btn.classList.remove('selected');
-                        });
-                        button.classList.add('selected');
-                        selectedTimeInput.value = time;
-                    });
-
-                    timeSlotsContainer.appendChild(button);
+            // Fetch booked dates from backend
+            fetch('/booked-dates')
+                .then(response => response.json())
+                .then(data => {
+                    bookedDates = data.booked_dates;
+                    initializeCalendar();
+                })
+                .catch(error => {
+                    console.error('Error fetching booked dates:', error);
+                    initializeCalendar();
                 });
-            }
 
-            // Format time for display
-            function formatTime(time) {
-                const [hours, minutes] = time.split(':');
-                const hour = parseInt(hours);
-                const ampm = hour >= 12 ? 'PM' : 'AM';
-                const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
-                return `${formattedHour}:${minutes} ${ampm}`;
-            }
+            function initializeCalendar() {
+                const calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    height: 'auto',
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth'
+                    },
+                    validRange: {
+                        start: new Date()
+                    },
+                    events: bookedDates.map(date => ({
+                        start: date,
+                        display: 'background',
+                        color: 'transparent'
+                    })),
+                    dateClick: function(info) {
+                        // Get the date in local timezone, not UTC
+                        const year = info.date.getFullYear();
+                        const month = String(info.date.getMonth() + 1).padStart(2, '0');
+                        const day = String(info.date.getDate()).padStart(2, '0');
+                        const clickedDate = `${year}-${month}-${day}`;
 
-            // Show alert function
-            function showAlert(message, type) {
-                const alertContainer = document.getElementById('alert-container');
-                const alertDiv = document.createElement('div');
-                alertDiv.className = `alert alert-${type}`;
-                alertDiv.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>${message}`;
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        const selectedDate = new Date(info.date);
+                        selectedDate.setHours(0, 0, 0, 0);
 
-                // Remove existing alerts
-                alertContainer.innerHTML = '';
-                alertContainer.appendChild(alertDiv);
+                        if (selectedDate < today) {
+                            return;
+                        }
 
-                // Auto remove after 5 seconds
-                setTimeout(() => {
-                    alertDiv.style.transition = 'opacity 0.5s ease';
-                    alertDiv.style.opacity = '0';
-                    setTimeout(() => alertDiv.remove(), 500);
-                }, 5000);
-            }
+                        const formattedDate = selectedDate.toLocaleDateString('en-US', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
 
-            // Date input change handler
-            bookingDateInput.addEventListener('change', (event) => {
-                const selectedDate = new Date(event.target.value);
-                const dateString = event.target.value;
+                        if (bookedDates.includes(clickedDate)) {
+                            alert('❌ Sorry, ' + formattedDate + ' is already booked.\n\nPlease choose another date and contact us via WhatsApp!');
+                        } else {
+                            if (confirm('✅ ' + formattedDate + ' is available!\n\nWould you like to contact us via WhatsApp to book this date?')) {
+                                window.open('https://wa.me/60126509707?text=Hi! I would like to book a photography session on ' + formattedDate, '_blank');
+                            }
+                        }
+                    },
+                    dayCellDidMount: function(info) {
+                        // Get the date in local timezone, not UTC
+                        const year = info.date.getFullYear();
+                        const month = String(info.date.getMonth() + 1).padStart(2, '0');
+                        const day = String(info.date.getDate()).padStart(2, '0');
+                        const dateString = `${year}-${month}-${day}`;
 
-                // Clear previous time selection
-                selectedTimeInput.value = '';
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        const cellDate = new Date(info.date);
+                        cellDate.setHours(0, 0, 0, 0);
+                        const isToday = cellDate.getTime() === today.getTime();
 
-                // Check if date is already booked
-                if (bookedDates.includes(dateString)) {
-                    showAlert('This date is already booked. Please select another available date.', 'danger');
-                    event.target.value = '';
-                    return;
-                }
+                        if (cellDate < today) {
+                            info.el.classList.add('fc-day-past');
+                            return;
+                        }
 
-                generateTimeSlots(selectedDate);
-            });
+                        // Create status badge
+                        const badge = document.createElement('div');
+                        badge.className = 'date-status-badge';
 
-            // Form submission handling with enhanced validation
-            document.getElementById('bookingForm').addEventListener('submit', function(e) {
-                const submitBtn = document.getElementById('submitBtn');
-                const selectedTime = document.getElementById('selected-time').value;
-                const selectedDate = document.getElementById('booking-date').value;
+                        if (bookedDates.includes(dateString)) {
+                            info.el.classList.add('fc-day-disabled');
+                            badge.className += ' badge-booked';
+                            badge.innerHTML = 'Booked';
+                        } else {
+                            info.el.classList.add('fc-day-available');
+                            badge.className += ' badge-available';
+                            badge.innerHTML = 'Available';
+                        }
 
-                if (!selectedTime) {
-                    e.preventDefault();
-                    showAlert('Please select a time slot for your booking session.', 'danger');
-                    document.getElementById('time-slots').scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center'
-                    });
-                    return;
-                }
+                        if (isToday) {
+                            // Override with today badge
+                            badge.className = 'date-status-badge badge-today';
+                            badge.innerHTML = 'Today';
+                        }
 
-                // Check if date is already booked (client-side validation)
-                if (selectedDate) {
-                    if (bookedDates.includes(selectedDate)) {
-                        e.preventDefault();
-                        showAlert('This date is already booked. Please select another available date.', 'danger');
-                        return;
+                        info.el.appendChild(badge);
                     }
-                }
+                });
 
-                submitBtn.innerHTML = '<span>Processing Your Booking...</span>';
-                submitBtn.disabled = true;
-                submitBtn.style.opacity = '0.7';
-            });
-
-            // Enhanced mobile menu toggle
-            document.addEventListener('DOMContentLoaded', function() {
-                const navbarToggler = document.querySelector('.navbar-toggler');
-                const navbarCollapse = document.querySelector('.navbar-collapse');
-
-                if (navbarToggler) {
-                    navbarToggler.addEventListener('click', function() {
-                        navbarCollapse.classList.toggle('show');
-                    });
-                }
-            });
-
-            // Call the async function to start the process
-            fetchBookedDates();
+                calendar.render();
+            }
         });
     </script>
 </body>

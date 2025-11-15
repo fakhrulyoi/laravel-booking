@@ -3,22 +3,72 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookingController;
 
-// Public routes
-Route::get('/', [BookingController::class, 'index'])->name('home');
-Route::post('/book', [BookingController::class, 'store'])->name('book.store');
-Route::get('/all-bookings', [BookingController::class, 'getAllBookings'])->name('all-bookings');
+// ============================================
+// PUBLIC ROUTES (Customer - View Only)
+// ============================================
 
-// API routes for calendar
+// Homepage - Customer can view calendar only
+Route::get('/', [BookingController::class, 'index'])->name('home');
+
+// API: Get all booked dates for calendar
 Route::get('/booked-dates', [BookingController::class, 'getBookedDates'])->name('booked-dates');
 
-// Authentication routes
+// ============================================
+// AUTHENTICATION ROUTES
+// ============================================
+
+// Show login form
 Route::get('/login', [BookingController::class, 'showLogin'])->name('login');
+
+// Handle login submission
 Route::post('/login', [BookingController::class, 'login'])->name('login.submit');
+
+// Logout
 Route::post('/logout', [BookingController::class, 'logout'])->name('logout');
 
-// Admin routes (protected with admin middleware)
-Route::middleware(['admin'])->prefix('admin')->group(function () {
-    Route::get('/', [BookingController::class, 'admin'])->name('admin');
-    Route::get('/booking/{id}/status', [BookingController::class, 'updateStatus'])->name('admin.booking.status');
-    Route::delete('/booking/{id}', [BookingController::class, 'delete'])->name('admin.booking.delete');
+// ============================================
+// ADMIN ROUTES (Protected - Manage Bookings)
+// ============================================
+
+Route::middleware(['web'])->group(function () {
+
+    // Admin Dashboard
+    Route::get('/admin', function () {
+        if (!session('admin_logged_in')) {
+            return redirect('/login');
+        }
+        return app(BookingController::class)->admin();
+    })->name('admin');
+
+    // Add New Booking (Admin Only)
+    Route::post('/admin/booking', function () {
+        if (!session('admin_logged_in')) {
+            return redirect('/login');
+        }
+        return app(BookingController::class)->store(request());
+    })->name('admin.booking.store');
+
+    // Update Booking (Admin Only)
+    Route::put('/admin/booking/{id}', function ($id) {
+        if (!session('admin_logged_in')) {
+            return redirect('/login');
+        }
+        return app(BookingController::class)->update($id, request());
+    })->name('admin.booking.update');
+
+    // Quick Status Update (Admin Only)
+    Route::get('/admin/booking/{id}/status', function ($id) {
+        if (!session('admin_logged_in')) {
+            return redirect('/login');
+        }
+        return app(BookingController::class)->updateStatus($id, request());
+    })->name('admin.booking.status');
+
+    // Delete Booking (Admin Only)
+    Route::delete('/admin/booking/{id}', function ($id) {
+        if (!session('admin_logged_in')) {
+            return redirect('/login');
+        }
+        return app(BookingController::class)->delete($id);
+    })->name('admin.booking.delete');
 });
