@@ -3,14 +3,21 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
 
 class AdminAuth
 {
-    public function handle($request, Closure $next)
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle(Request $request, Closure $next)
     {
-        if (!Session::get('admin_logged_in')) {
-            return redirect('/login');
+        if (!session('admin_logged_in')) {
+            return redirect('/login')->with('error', 'Please login to access admin panel');
         }
         return $next($request);
     }

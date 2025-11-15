@@ -7,6 +7,7 @@ use App\Http\Controllers\BookingController;
 Route::get('/', [BookingController::class, 'index'])->name('home');
 Route::post('/book', [BookingController::class, 'store'])->name('book.store');
 Route::get('/all-bookings', [BookingController::class, 'getAllBookings'])->name('all-bookings');
+
 // API routes for calendar
 Route::get('/booked-dates', [BookingController::class, 'getBookedDates'])->name('booked-dates');
 
@@ -15,26 +16,9 @@ Route::get('/login', [BookingController::class, 'showLogin'])->name('login');
 Route::post('/login', [BookingController::class, 'login'])->name('login.submit');
 Route::post('/logout', [BookingController::class, 'logout'])->name('logout');
 
-// Admin routes (protected)
-Route::middleware(['web'])->group(function () {
-    Route::get('/admin', function () {
-        if (!session('admin_logged_in')) {
-            return redirect('/login');
-        }
-        return app(BookingController::class)->admin();
-    })->name('admin');
-
-    Route::get('/admin/booking/{id}/status', function ($id) {
-        if (!session('admin_logged_in')) {
-            return redirect('/login');
-        }
-        return app(BookingController::class)->updateStatus($id, request());
-    })->name('admin.booking.status');
-
-    Route::delete('/admin/booking/{id}', function ($id) {
-        if (!session('admin_logged_in')) {
-            return redirect('/login');
-        }
-        return app(BookingController::class)->delete($id, request());
-    })->name('admin.booking.delete');
+// Admin routes (protected with admin middleware)
+Route::middleware(['admin'])->prefix('admin')->group(function () {
+    Route::get('/', [BookingController::class, 'admin'])->name('admin');
+    Route::get('/booking/{id}/status', [BookingController::class, 'updateStatus'])->name('admin.booking.status');
+    Route::delete('/booking/{id}', [BookingController::class, 'delete'])->name('admin.booking.delete');
 });

@@ -38,7 +38,8 @@ class BookingController extends Controller
 
         return view('index', compact('bookings', 'upcomingBookings'));
     }
-// Add this method to BookingController.php
+
+    // Get all bookings (API endpoint)
     public function getAllBookings()
     {
         $bookings = $this->loadBookings();
@@ -46,6 +47,7 @@ class BookingController extends Controller
             'bookings' => $bookings
         ]);
     }
+
     // Show admin page
     public function admin()
     {
@@ -190,27 +192,37 @@ class BookingController extends Controller
     // Show login form
     public function showLogin()
     {
+        // Redirect to admin if already logged in
+        if (session('admin_logged_in')) {
+            return redirect('/admin');
+        }
+
         return view('login');
     }
 
     // Handle login
     public function login(Request $request)
     {
+        $request->validate([
+            'password' => 'required'
+        ]);
+
         $password = $request->input('password');
 
         // Simple password check (in production, use proper authentication)
         if ($password === 'admin123') {
             session(['admin_logged_in' => true]);
-            return redirect('/admin');
+            return redirect('/admin')->with('success', 'Welcome to admin dashboard!');
         }
 
-        return back()->with('error', 'Invalid password');
+        return back()->with('error', 'Invalid password. Please try again.');
     }
 
     // Logout
     public function logout()
     {
         session()->forget('admin_logged_in');
-        return redirect('/login');
+        session()->flush();
+        return redirect('/login')->with('success', 'You have been logged out successfully.');
     }
 }
