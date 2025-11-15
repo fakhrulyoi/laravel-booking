@@ -1,40 +1,40 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\BookingController;
 
-// Homepage (form + calendar)
-Route::get('/', [BookingController::class, 'index']);
+// Public routes
+Route::get('/', [BookingController::class, 'index'])->name('home');
+Route::post('/book', [BookingController::class, 'store'])->name('book.store');
+Route::get('/all-bookings', [BookingController::class, 'getAllBookings'])->name('all-bookings');
+// API routes for calendar
+Route::get('/booked-dates', [BookingController::class, 'getBookedDates'])->name('booked-dates');
 
-// Handle booking form submission
-Route::post('/book', [BookingController::class, 'store']);
+// Authentication routes
+Route::get('/login', [BookingController::class, 'showLogin'])->name('login');
+Route::post('/login', [BookingController::class, 'login'])->name('login.submit');
+Route::post('/logout', [BookingController::class, 'logout'])->name('logout');
 
-// Login page
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+// Admin routes (protected)
+Route::middleware(['web'])->group(function () {
+    Route::get('/admin', function () {
+        if (!session('admin_logged_in')) {
+            return redirect('/login');
+        }
+        return app(BookingController::class)->admin();
+    })->name('admin');
 
-// Handle login
-Route::post('/login', function (Request $request) {
-    $password = env('ADMIN_PASSWORD', 'admin123');
+    Route::get('/admin/booking/{id}/status', function ($id) {
+        if (!session('admin_logged_in')) {
+            return redirect('/login');
+        }
+        return app(BookingController::class)->updateStatus($id, request());
+    })->name('admin.booking.status');
 
-    if ($request->password === $password) {
-        session(['admin_logged_in' => true]);
-        return redirect('/admin');
-    }
-
-    return back()->with('error', '❌ Password salah!');
-})->name('login.post');
-
-// Logout
-Route::post('/logout', function () {
-    session()->forget('admin_logged_in');
-    return redirect('/')->with('success', '✅ Anda telah keluar!');
-})->name('logout');
-
-// Admin page (list of bookings) - Protected
-Route::middleware('admin')->group(function () {
-    Route::get('/admin', [BookingController::class, 'admin'])->name('admin');
-    Route::get('/delete/{date}', [BookingController::class, 'delete'])->name('delete');
+    Route::delete('/admin/booking/{id}', function ($id) {
+        if (!session('admin_logged_in')) {
+            return redirect('/login');
+        }
+        return app(BookingController::class)->delete($id, request());
+    })->name('admin.booking.delete');
 });
