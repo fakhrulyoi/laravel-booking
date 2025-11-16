@@ -268,15 +268,13 @@
                 <i class="fas fa-external-link-alt"></i>
                 <span>View Website</span>
             </a>
-            <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </a>
+         <a class="nav-link" href="/">
+    <i class="fas fa-home"></i>
+    <span>Back to Website</span>
+</a>
         </nav>
 
-        <form id="logout-form" action="/logout" method="POST" style="display: none;">
-            @csrf
-        </form>
+
     </div>
 
     <!-- Main Content -->

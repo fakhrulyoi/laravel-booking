@@ -45,27 +45,28 @@ class BookingController extends Controller
     }
 
     // Show admin page
-    public function admin()
-    {
-        $bookings = $this->loadBookings();
+   // Show admin page
+public function admin()
+{
+    $bookings = $this->loadBookings();
 
-        // Sort bookings by date (newest first)
-        usort($bookings, function($a, $b) {
-            return strtotime($b['date']) - strtotime($a['date']);
-        });
+    // Sort bookings by date (newest first)
+    usort($bookings, function($a, $b) {
+        return strtotime($b['date']) - strtotime($a['date']);
+    });
 
-        // Get statistics
-        $totalBookings = count($bookings);
-        $upcomingBookings = count(array_filter($bookings, function($booking) {
-            return Carbon::parse($booking['date'])->isFuture();
-        }));
-        $completedBookings = $totalBookings - $upcomingBookings;
+    // Get statistics
+    $totalBookings = count($bookings);
+    $upcomingBookings = count(array_filter($bookings, function($booking) {
+        return Carbon::parse($booking['date'])->isFuture();
+    }));
+    $completedBookings = $totalBookings - $upcomingBookings;
 
-        // Get popular photoshoot types
-        $typeStats = array_count_values(array_column($bookings, 'type'));
+    // Get popular photoshoot types
+    $typeStats = array_count_values(array_column($bookings, 'type'));
 
-        return view('admin', compact('bookings', 'totalBookings', 'upcomingBookings', 'completedBookings', 'typeStats'));
-    }
+    return view('admin', compact('bookings', 'totalBookings', 'upcomingBookings', 'completedBookings', 'typeStats'));
+}
 
     // ADMIN: Store a new booking
     public function store(Request $request)
