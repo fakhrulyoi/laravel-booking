@@ -59,3 +59,28 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# FRAME WORK
+Frontend Stack:
+
+HTML5 + CSS3 + Vanilla JavaScript
+Bootstrap 5.3.2
+Font Awesome 6.4.0
+FullCalendar 6.1.7
+AOS 2.3.1
+Google Fonts (Inter + Playfair Display)
+
+Backend Stack:
+
+Laravel 11 (PHP Framework)
+PHP 8.2+
+JSON File Storage (no database)
+Session-based Authentication
+Blade Templating Engine
+
+Architecture:
+
+MVC Pattern
+RESTful routing
+File-based data persistence
+Middleware authentication

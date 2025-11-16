@@ -299,7 +299,135 @@
         .gallery-wrapper:hover .gallery-track {
             animation-play-state: paused;
         }
+/* Package Cards Styling */
+.package-section {
+    margin-top: 3rem;
+}
 
+.package-category-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    text-align: center;
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.package-category-title i {
+    color: var(--accent-blue);
+    font-size: 1.75rem;
+}
+
+.package-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.package-badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: var(--accent-blue);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: var(--shadow-md);
+}
+
+.package-badge.popular {
+    background: linear-gradient(135deg, var(--accent-emerald), #059669);
+}
+
+.featured-package {
+    border: 2px solid var(--accent-emerald);
+    transform: scale(1.02);
+}
+
+.featured-package:hover {
+    transform: scale(1.05) translateY(-8px);
+}
+
+.package-price {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    margin: 1.5rem 0 1rem;
+    text-align: center;
+}
+
+.featured-package .package-price {
+    color: var(--accent-emerald);
+}
+
+.package-features {
+    list-style: none;
+    margin: 1.5rem 0;
+    flex-grow: 1;
+}
+
+.package-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--neutral-100);
+    color: var(--neutral-700);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.package-features li:last-child {
+    border-bottom: none;
+}
+
+.package-features li i {
+    color: var(--accent-emerald);
+    font-size: 1rem;
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+}
+
+.general-packages {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.package-terms {
+    background: var(--neutral-50);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    border: 2px dashed var(--neutral-300);
+}
+
+.package-terms h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.package-terms h4 i {
+    color: var(--accent-blue);
+}
+
+.terms-list {
+    list-style: none;
+    color: var(--neutral-700);
+}
+
+.terms-list li {
+    padding: 0.5rem 0;
+    line-height: 1.6;
+}
         @keyframes scrollLeft {
             0% {
                 transform: translateX(0);
@@ -836,7 +964,75 @@
                 width: 8px;
                 height: 8px;
             }
+            /* Package Cards Responsive */
+.services-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.package-category-title {
+    font-size: 1.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.package-price {
+    font-size: 2rem;
+}
+
+.package-card {
+    padding: 2rem 1.5rem;
+}
+
+.package-badge {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+    right: 15px;
+    top: -10px;
+}
+
+.package-features li {
+    font-size: 0.9rem;
+}
+
+.package-terms {
+    padding: 1.5rem;
+}
+
+.featured-package {
+    transform: scale(1);
+}
+
+.featured-package:hover {
+    transform: translateY(-8px);
+}
         }
+        /* Tablet Responsive (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    .general-packages {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .package-category-title {
+        font-size: 1.75rem;
+    }
+}
+
+/* Large Tablet and Small Desktop (1024px - 1280px) */
+@media (min-width: 1024px) and (max-width: 1280px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .general-packages {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
     </style>
 </head>
 <body>
@@ -886,64 +1082,150 @@
     </section>
 
     <!-- Services Section -->
-    <section class="services-section" id="services">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <div class="section-subtitle">Our Expertise</div>
-                <h2 class="section-title">Professional Photography Services</h2>
-                <p class="section-description">
-                    We offer comprehensive photography solutions tailored to capture your unique moments
-                    with artistic excellence and technical precision.
-                </p>
-            </div>
+   <!-- Services Section -->
+<section class="services-section" id="services">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <div class="section-subtitle">Our Packages</div>
+            <h2 class="section-title">Photography Packages</h2>
+            <p class="section-description">
+                Choose from our specially curated packages designed to suit your photography needs.
+                Each package includes professional editing and high-quality digital deliverables.
+            </p>
+        </div>
 
+        <!-- Convocation Promo Packages -->
+        <div class="package-section" data-aos="fade-up">
+            <h3 class="package-category-title">
+                <i class="fas fa-graduation-cap"></i>
+                Convocation Promo 2025
+            </h3>
             <div class="services-grid">
-                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <h3 class="service-title">Wedding Photography</h3>
-                    <p class="service-description">
-                        Comprehensive wedding coverage from engagement to reception, capturing every
-                        emotional moment of your special day with artistic storytelling.
-                    </p>
+                <div class="service-card package-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="package-badge">Package A</div>
+                    <div class="package-price">RM 180</div>
+                    <h3 class="service-title">Basic Coverage</h3>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 30 mins coverage</li>
+                        <li><i class="fas fa-check"></i> Shoot and transfer</li>
+                        <li><i class="fas fa-check"></i> Edited photos</li>
+                        <li><i class="fas fa-check"></i> Online gallery download</li>
+                        <li><i class="fas fa-check"></i> Unlimited photos</li>
+                        <li><i class="fas fa-check"></i> Personal + Family</li>
+                    </ul>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-icon">
-                        <i class="fas fa-birthday-cake"></i>
-                    </div>
-                    <h3 class="service-title">Event Photography</h3>
-                    <p class="service-description">
-                        Professional event documentation for birthdays, anniversaries, and celebrations
-                        that preserves memories for generations to come.
-                    </p>
+                <div class="service-card package-card featured-package" data-aos="fade-up" data-aos-delay="200">
+                    <div class="package-badge popular">Package B - Popular</div>
+                    <div class="package-price">RM 400</div>
+                    <h3 class="service-title">Standard Coverage</h3>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 1 hour coverage</li>
+                        <li><i class="fas fa-check"></i> Shoot and transfer</li>
+                        <li><i class="fas fa-check"></i> Edited photos</li>
+                        <li><i class="fas fa-check"></i> Online gallery download</li>
+                        <li><i class="fas fa-check"></i> Unlimited photos</li>
+                        <li><i class="fas fa-check"></i> Max 5 person</li>
+                        <li><i class="fas fa-check"></i> Grouping + Personal</li>
+                    </ul>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="service-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3 class="service-title">Graduation Sessions</h3>
-                    <p class="service-description">
-                        Academic milestone photography that celebrates achievements with dignity
-                        and captures the pride of educational accomplishments.
-                    </p>
+                <div class="service-card package-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="package-badge">Package C</div>
+                    <div class="package-price">RM 600</div>
+                    <h3 class="service-title">Premium Coverage</h3>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 1 hour coverage</li>
+                        <li><i class="fas fa-check"></i> Shoot and transfer</li>
+                        <li><i class="fas fa-check"></i> Edited photos</li>
+                        <li><i class="fas fa-check"></i> Online gallery download</li>
+                        <li><i class="fas fa-check"></i> Unlimited photos</li>
+                        <li><i class="fas fa-check"></i> Max 7 person</li>
+                        <li><i class="fas fa-check"></i> Grouping + Personal</li>
+                    </ul>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="service-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="service-title">Portrait Sessions</h3>
-                    <p class="service-description">
-                        Family portraits, couple sessions, and individual headshots crafted with
-                        attention to lighting, composition, and authentic emotion.
-                    </p>
+                <div class="service-card package-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="package-badge">Solo Package</div>
+                    <div class="package-price">RM 80</div>
+                    <h3 class="service-title">Individual Session</h3>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Max 1 hour coverage</li>
+                        <li><i class="fas fa-check"></i> Shoot and transfer</li>
+                        <li><i class="fas fa-check"></i> Edited photos</li>
+                        <li><i class="fas fa-check"></i> Online gallery download</li>
+                        <li><i class="fas fa-check"></i> Unlimited photos</li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </section>
+
+        <!-- General Photography Packages -->
+        <div class="package-section" data-aos="fade-up" style="margin-top: 4rem;">
+            <h3 class="package-category-title">
+                <i class="fas fa-camera"></i>
+                General Photography Packages
+            </h3>
+            <div class="services-grid general-packages">
+                <div class="service-card package-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="package-badge">One Day Event</div>
+                    <div class="package-price">RM 799</div>
+                    <h3 class="service-title">Nikah • Sanding</h3>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 5 hours coverage</li>
+                        <li><i class="fas fa-check"></i> 300+ edited photos</li>
+                        <li><i class="fas fa-check"></i> 1 outdoor same day (1 hour)</li>
+                        <li><i class="fas fa-check"></i> Online gallery download</li>
+                        <li><i class="fas fa-check"></i> 600 on-event photos (2-7 days)</li>
+                        <li><i class="fas fa-check"></i> Selected pictures for preview within 72 hours</li>
+                    </ul>
+                </div>
+
+                <div class="service-card package-card featured-package" data-aos="fade-up" data-aos-delay="200">
+                    <div class="package-badge popular">Nikah Only - Popular</div>
+                    <div class="package-price">RM 499</div>
+                    <h3 class="service-title">Intimate Ceremony</h3>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 3 hours coverage</li>
+                        <li><i class="fas fa-check"></i> 200+ edited high-resolution photos</li>
+                        <li><i class="fas fa-check"></i> Free outdoor same day (1 hour)</li>
+                        <li><i class="fas fa-check"></i> Online gallery download</li>
+                        <li><i class="fas fa-check"></i> 400 on-event photos</li>
+                        <li><i class="fas fa-check"></i> Selected pictures for preview within 72 hours</li>
+                    </ul>
+                </div>
+
+                <div class="service-card package-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="package-badge">Engagement</div>
+                    <div class="package-price">RM 359</div>
+                    <h3 class="service-title">Pre-Wedding Session</h3>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> 3 hours coverage</li>
+                        <li><i class="fas fa-check"></i> 200+ edited high-resolution photos</li>
+                        <li><i class="fas fa-check"></i> Free outdoor same day (1 hour)</li>
+                        <li><i class="fas fa-check"></i> Online gallery download</li>
+                        <li><i class="fas fa-check"></i> 400 on-event photos</li>
+                        <li><i class="fas fa-check"></i> Selected pictures for preview within 72 hours</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terms & Conditions -->
+        <div class="package-terms" data-aos="fade-up" style="margin-top: 3rem;">
+            <h4 style="font-weight: 700; color: var(--primary-dark); margin-bottom: 1rem;">
+                <i class="fas fa-info-circle"></i> Terms & Conditions
+            </h4>
+            <ul class="terms-list">
+                <li>• Deposit RM50 for booking (Refund is based on discrepancy)</li>
+                <li>• Booking confirmed once deposit has been made</li>
+                <li>• Transportation fees - RM50 charge RM1</li>
+                <li>• Cover Kuantan/Pekan area</li>
+                <li>• Free transportation around Kuantan. Transportation fees vary depend on place (Pekan)</li>
+            </ul>
+        </div>
+    </div>
+</section>
 
     <!-- Gallery Section -->
     <section class="gallery-section" id="gallery">
